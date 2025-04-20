@@ -1,0 +1,32 @@
+ {
+  "*": {
+    "theme": {
+      "layout": "default",
+      "sidebar": false,
+      "toc": true,
+      "typesetting": "article",
+      "breadcrumb": false
+    }
+  },
+  "index": {
+    "display": "hidden",
+    "theme": {
+      "layout": "default",
+      "sidebar": false,
+      "pagination": false,
+      "toc": false
+      }
+  },
+  "posts": {
+    "title": "Posts"
+  },
+  "tag": {
+    "title": "Tags"
+  },
+  "about": {
+    "title": "About",
+    "type": "page",
+    "href": "https://www.mo-omgaia.vercel.app"
+  }
+}
+
