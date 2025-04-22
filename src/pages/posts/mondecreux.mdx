@@ -35,15 +35,15 @@ trajectory = {
   const n = 20;
 
   let pt1 = polar_to_cartesian({r:9.979*2, theta:theta});
-  let v1 = new THREE.Vector2(pt1.x, pt1.y);
+  let v1 = ({x:pt1.x, y:pt1.y});
   let pt2 = polar_to_cartesian({r:4.668*2, theta:theta});
-  let v2 = new THREE.Vector2(pt2.x, pt2.y);
+  let v2 = ({x:pt2.x, y:pt2.y});
   let pt3 = polar_to_cartesian({r:9.979*2, theta:-theta});
   let pt4 = polar_to_cartesian({r:4.668*2, theta:-theta});
   
-  const radius = v1.distanceTo(v2)/4;
-  const c1 = {x:(pt1.x+pt2.x)/2,y:(pt1.y+pt2.y)/2};
-  const c2 = {x:(pt3.x+pt4.x)/2,y:(pt3.y+pt4.y)/2};
+  const radius = distanceTo(v1, v2)/4;
+  const c1 = ({x:(pt1.x+pt2.x)/2,y:(pt1.y+pt2.y)/2});
+  const c2 = ({x:(pt3.x+pt4.x)/2,y:(pt3.y+pt4.y)/2});
 
   var points = [];
 
@@ -51,7 +51,7 @@ trajectory = {
     var points = [];
     d3.range(a1, a2, step).map(i => {
       let ptXY = polar_to_cartesian({r:r*2, theta:i});
-      points.push( new THREE.Vector2( ptXY.x + center.x, ptXY.y + center.y) );
+      points.push( {x:ptXY.x + center.x, y:ptXY.y + center.y} );
     })
     return points;
   }
