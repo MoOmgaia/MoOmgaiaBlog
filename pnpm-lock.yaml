@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@linard-y/paramatric-function':
-        specifier: https://api.observablehq.com/@linard-y/paramatric-function@1066.tgz?v=3
-        version: https://api.observablehq.com/@linard-y/paramatric-function@1066.tgz?v=3(@observablehq/runtime@5.9.9)
+        specifier: https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3
+        version: https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3(@observablehq/runtime@5.9.9)
       '@observablehq/runtime':
         specifier: ^5.9.9
         version: 5.9.9
