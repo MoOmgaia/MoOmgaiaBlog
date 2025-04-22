@@ -1,7 +1,3 @@
-import { useState, useRef } from 'react'
-import { LoadingCircle } from '@/components/ui/loading-circle'
-import { countries } from './countries'
-
 import React, {useRef, useEffect} from "react";
 import {Runtime, Inspector} from "@observablehq/runtime";
 import notebook from "@linard-y/paramatric-function";
@@ -23,7 +19,7 @@ function ParamatricFunction() {
     <>
       <div ref={chartRef} />
       <div ref={viewofTimeRef} />
-      <p>Credit: <a href="https://observablehq.com/@linard-y/paramatric-function@1066">Paramatric function by linard-y</a></p>
+      <p>Credit: <a href="https://observablehq.com/@linard-y/paramatric-function@1083">Paramatric function by linard-y</a></p>
     </>
   );
 }
