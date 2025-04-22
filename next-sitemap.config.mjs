@@ -1,4 +1,4 @@
-const SITE_URL = process.env.SITE_URL || 'https://blog.alexefimenko.com'
+const SITE_URL = process.env.SITE_URL || 'https://moomgaia-blog.vercel.app'
 
 const NEXT_SSG_FILES = ['/*.json$', '/*_buildManifest.js$', '/*_middlewareManifest.js$', '/*_ssgManifest.js$', '/*.js$']
 
