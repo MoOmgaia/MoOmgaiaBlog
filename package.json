@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@linard-y/paramatric-function": "https://api.observablehq.com/@linard-y/paramatric-function@1066.tgz?v=3",
+    "@linard-y/paramatric-function": "https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3",
     "@observablehq/runtime": "^5.9.9",
     "@theguild/components": "^6.1.1",
     "@theguild/tailwind-config": "^0.3.2",
