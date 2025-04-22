@@ -7,7 +7,7 @@ Disallow: /*_ssgManifest.js$
 Disallow: /*.js$
 
 # Host
-Host: https://moomgaia-blog.vercel.app/
+Host: https://blog.alexefimenko.com
 
 # Sitemaps
-Sitemap: https://moomgaia-blog.vercel.app/sitemap.xml
+Sitemap: https://blog.alexefimenko.com/sitemap.xml
