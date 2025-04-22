@@ -12,9 +12,61 @@ published: true
 
 ![Le Monde Creux](/blog-assets/mondecreux/cover.png)
 
-It is the second part of the series of articles about building a file storage with Next.js, PostgreSQL, and Minio S3. In [the first part](http://blog.alexefimenko.com/posts/nextjs-postgres-s3-locally), we have set up the development environment using Docker Compose. In this part, we will build a full-stack application using Next.js, PostgreSQL, and Minio S3.
+Même si nous n'envisageons pas d'utiliser, cartographier ou décrire la surface interieure de Mô'OmgaÏa, nous avons choisi de maintenir une forme de planète similaire à celle de Mystara : un monde creux (Hollow world). Dans ce post nous présentons la méthode utiliser pour la representation 3D de la planète.
 
-## Introduction
+## Une fonction paramètrique
 
-In the early days of web development, files like images and documents were stored on the web server along with the application code. However, with increasing user traffic and the need to store large files, cloud storage services like Amazon S3 have become the preferred way to store files.
+Pour Mystara, on a souvent tendance à simplifier en considérant un monde externe et un monde interne mais en réalité la surface est continue, celle du monde interne rejoignant celle du monde externe via des orifices prés des pôles. Le volume généré par cette surface est symétrique par rapport à l'axe passant par les centres des orifices. On peut donc dans un premier temps réduire le problème à une recherche de courbe 2D qui fera ensuite l'objet d'une rotation pour obtenir la surface ou le volume de la planète.
+
+Pour assurer la continuité de surface, nous allons appréhender le problème (la définition de la courbe 2D) comme la recherche d'une trajectoire pouvant être décrite par une fonction paramètrique.
+Pour respècter la forme de Mystara/Mô'Omgaïa, cette fonction paramètrique fera appel à trois paramètres clé :
+* le rayon nominal de la surface du monde externe, Rout;
+* le rayon de l'arc d'ouverture entre le monde interne et externe, Ropening, autrement dit la demi-épaisseur du monde creux ou Rout-Rin, Rin étant le rayon nominal de la surface du monde interne;
+* l'angle d'ouverture défini entre les deux arcs d'ouverture, theta.
+
+La  trajectoire est donné par N points de contrôle [t, x, y]. Notons que le temps t des points de contrôles ne suivent pas nécessairement une grille régulière. La seule hypothèse que nous faisons est que les points sont triés en fonction du temps ainsi t[i] < t[i+1].
+
+```javascript copy
+trajectory = {
+
+  const polar_to_cartesian = ({r, theta}) => ({ x: r * Math.cos(theta), y: r * Math.sin(theta) })
+  const cartesian_to_polar = ({x, y}) => ({ r: Math.sqrt(x * x + y * y), theta: Math.atan2(y, x) })
+  const theta = Math.PI*((Math.sqrt(3)-1)/2);
+  const n = 20;
+
+  let pt1 = polar_to_cartesian({r:9.979*2, theta:theta});
+  let v1 = new THREE.Vector2(pt1.x, pt1.y);
+  let pt2 = polar_to_cartesian({r:4.668*2, theta:theta});
+  let v2 = new THREE.Vector2(pt2.x, pt2.y);
+  let pt3 = polar_to_cartesian({r:9.979*2, theta:-theta});
+  let pt4 = polar_to_cartesian({r:4.668*2, theta:-theta});
+  
+  const radius = v1.distanceTo(v2)/4;
+  const c1 = {x:(pt1.x+pt2.x)/2,y:(pt1.y+pt2.y)/2};
+  const c2 = {x:(pt3.x+pt4.x)/2,y:(pt3.y+pt4.y)/2};
+
+  var points = [];
+
+  const traj = (a1, a2, center, step, r) => {
+    var points = [];
+    d3.range(a1, a2, step).map(i => {
+      let ptXY = polar_to_cartesian({r:r*2, theta:i});
+      points.push( new THREE.Vector2( ptXY.x + center.x, ptXY.y + center.y) );
+    })
+    return points;
+  }
+
+  const pts1 = traj(-theta, theta, {x:0, y:0}, 2*theta/n, 9.979);
+  const pts2 = traj(theta,theta+(n-2)*Math.PI/n, c1, (2*theta/n)*9.979/radius, radius);
+  const pts3 = traj(theta,-theta, {x:0, y:0}, -(2*theta/n)*9.979/4.668, 4.668);
+  const pts4 = traj(-theta-(n-2)*Math.PI/n,-theta, c2, (2*theta/n)*9.979/radius, radius);
+  const N = pts1.length + pts2.length + pts3.length + pts4.length + 1;
+
+  return ({
+    knots:[...pts1, ...pts2, ...pts3, ...pts4, pts1[0]].map((pt,i)=>[i/N, pt.x, pt.y]), 
+    circles:[{center:{x:0, y:0}, radius:2*9.979}, {center:{x:0, y:0}, radius:2*4.668}, {center:c1, radius:radius*2}, {center:c2, radius:radius*2}, {center:{x:0, y:0}, radius:9.979+4.668}]
+  })
+  
+}
+```
 
