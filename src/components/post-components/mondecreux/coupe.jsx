@@ -1,7 +1,3 @@
-import { useState, useRef } from 'react'
-import { LoadingCircle } from '@/components/ui/loading-circle'
-import { countries } from './countries'
-
 import React, {useRef, useEffect} from "react";
 import {Runtime, Inspector} from "@observablehq/runtime";
 import notebook from "@linard-y/paramatric-function";
