@@ -12,6 +12,7 @@
   "dependencies": {
     "@linard-y/paramatric-function": "https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3",
     "@observablehq/runtime": "^5.9.9",
+    "@robinl/my-flights": "https://api.observablehq.com/@robinl/my-flights.tgz?v=3",
     "@theguild/components": "^6.1.1",
     "@theguild/tailwind-config": "^0.3.2",
     "clsx": "^2.1.0",
