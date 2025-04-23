@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@linard-y/paramatric-function": "https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3",
-    "@observablehq/runtime": "^5.9.9",
+    "@observablehq/inputs": "^0.12.0",
+    "@observablehq/inspector": "^5.0.1",
+    "@observablehq/runtime": "5",
+    "@observablehq/stdlib": "^5.8.8",
     "@robinl/filling-the-country-with-solar-panels": "https://api.observablehq.com/@robinl/filling-the-country-with-solar-panels.tgz?v=3",
     "@theguild/components": "^6.1.1",
     "@theguild/tailwind-config": "^0.3.2",
