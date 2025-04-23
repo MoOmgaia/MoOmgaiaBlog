@@ -70,3 +70,9 @@ trajectory = {
 }
 ```
 
+import notebook from '@linard-y/paramatric-function';
+import ObservableNotebook from '@/components/ObservableNotebook';
+
+export const output_order = ['chart', 'viewof time'];
+
+<ObservableNotebook notebook={notebook} cells={output_order} />

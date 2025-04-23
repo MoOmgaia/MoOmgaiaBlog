@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@linard-y/paramatric-function':
-        specifier: https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3
-        version: https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3(@observablehq/runtime@5.9.9)
+        specifier: https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3
+        version: https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3(@observablehq/runtime@5.9.9)
       '@observablehq/runtime':
         specifier: ^5.9.9
         version: 5.9.9
@@ -371,9 +371,9 @@ packages:
   '@jridgewell/trace-mapping@0.3.22':
     resolution: {integrity: sha512-Wf963MzWtA2sjrNt+g18IAln9lKnlRp+K2eH4jjIoF1wYeq3aMREpG09xhlhdzS0EjwU7qmUJYangWa+151vZw==}
 
-  '@linard-y/paramatric-function@https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3':
-    resolution: {tarball: https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3}
-    version: 1083.0.0
+  '@linard-y/paramatric-function@https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3':
+    resolution: {tarball: https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3}
+    version: 1113.0.0
     peerDependencies:
       '@observablehq/runtime': 4 - 5
 
@@ -5119,7 +5119,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@linard-y/paramatric-function@https://api.observablehq.com/@linard-y/paramatric-function@1083.tgz?v=3(@observablehq/runtime@5.9.9)':
+  '@linard-y/paramatric-function@https://api.observablehq.com/@linard-y/paramatric-function.tgz?v=3(@observablehq/runtime@5.9.9)':
     dependencies:
       '@observablehq/runtime': 5.9.9
 
@@ -7551,7 +7551,7 @@ snapshots:
 
   hast-util-from-dom@5.0.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       hastscript: 8.0.0
       web-namespaces: 2.0.1
 
@@ -7564,7 +7564,7 @@ snapshots:
 
   hast-util-from-html@2.0.1:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       devlop: 1.1.0
       hast-util-from-parse5: 8.0.1
       parse5: 7.1.2
@@ -7573,8 +7573,8 @@ snapshots:
 
   hast-util-from-parse5@8.0.1:
     dependencies:
-      '@types/hast': 3.0.3
-      '@types/unist': 3.0.2
+      '@types/hast': 3.0.4
+      '@types/unist': 3.0.3
       devlop: 1.1.0
       hastscript: 8.0.0
       property-information: 6.5.0
@@ -7584,7 +7584,7 @@ snapshots:
 
   hast-util-is-element@3.0.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
 
   hast-util-parse-selector@4.0.0:
     dependencies:
@@ -7663,7 +7663,7 @@ snapshots:
 
   hast-util-to-parse5@8.0.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.3
       devlop: 1.1.0
       property-information: 6.5.0
@@ -8344,7 +8344,7 @@ snapshots:
 
   mdast-util-to-hast@12.3.0:
     dependencies:
-      '@types/hast': 2.3.9
+      '@types/hast': 2.3.10
       '@types/mdast': 3.0.15
       mdast-util-definitions: 5.1.2
       micromark-util-sanitize-uri: 1.2.0
@@ -8355,7 +8355,7 @@ snapshots:
 
   mdast-util-to-hast@13.1.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       '@ungap/structured-clone': 1.2.0
       devlop: 1.1.0
@@ -8670,8 +8670,8 @@ snapshots:
 
   micromark-factory-space@2.0.0:
     dependencies:
-      micromark-util-character: 2.0.1
-      micromark-util-types: 2.0.0
+      micromark-util-character: 2.1.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-title@1.1.0:
     dependencies:
@@ -8708,8 +8708,8 @@ snapshots:
 
   micromark-util-character@2.0.1:
     dependencies:
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-character@2.1.1:
     dependencies:
@@ -10572,7 +10572,7 @@ snapshots:
 
   unist-util-find-after@5.0.0:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-is: 6.0.0
 
   unist-util-generated@2.0.1: {}
@@ -10619,11 +10619,11 @@ snapshots:
 
   unist-util-stringify-position@4.0.0:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
 
   unist-util-visit-parents@4.1.1:
     dependencies:
-      '@types/unist': 2.0.10
+      '@types/unist': 2.0.11
       unist-util-is: 5.2.1
 
   unist-util-visit-parents@5.1.3:
@@ -10718,7 +10718,7 @@ snapshots:
 
   vfile-message@4.0.2:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-stringify-position: 4.0.0
 
   vfile@5.3.7:
