@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@linard-y/3d-mystara": "https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3",
+    "@linard-y/3d-mystara": "https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3",
     "@linard-y/paramatric-function": "https://api.observablehq.com/@linard-y/paramatric-function@1133.tgz?v=3",
     "@observablehq/runtime": "^5.9.9",
     "@theguild/components": "^6.1.1",
