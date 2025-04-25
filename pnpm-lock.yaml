@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@linard-y/3d-mystara':
-        specifier: https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3
-        version: https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3(@observablehq/runtime@5.9.9)
+        specifier: https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3
+        version: https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3(@observablehq/runtime@5.9.9)
       '@linard-y/paramatric-function':
         specifier: https://api.observablehq.com/@linard-y/paramatric-function@1133.tgz?v=3
         version: https://api.observablehq.com/@linard-y/paramatric-function@1133.tgz?v=3(@observablehq/runtime@5.9.9)
@@ -374,8 +374,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.22':
     resolution: {integrity: sha512-Wf963MzWtA2sjrNt+g18IAln9lKnlRp+K2eH4jjIoF1wYeq3aMREpG09xhlhdzS0EjwU7qmUJYangWa+151vZw==}
 
-  '@linard-y/3d-mystara@https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3':
-    resolution: {tarball: https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3}
+  '@linard-y/3d-mystara@https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3':
+    resolution: {tarball: https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3}
     version: 677.0.0
     peerDependencies:
       '@observablehq/runtime': 4 - 5
@@ -5119,7 +5119,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@linard-y/3d-mystara@https://api.observablehq.com/@linard-y/3d-mystara.tgz?v=3(@observablehq/runtime@5.9.9)':
+  '@linard-y/3d-mystara@https://api.observablehq.com/@linard-y/3d-mystara@677.tgz?v=3(@observablehq/runtime@5.9.9)':
     dependencies:
       '@observablehq/runtime': 5.9.9
 
