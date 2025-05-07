@@ -1,0 +1,68 @@
+---
+title: Les contours de Mô'Omgaïa
+description: Le contour des continents et des îles de Mô'Omgaïa  sont conservés identiques à ceux de Mystara. Nous reprenons ainsi une carte de Mystara pour échantillonner le tracé des contours et créer un fichier  
+date: 2024-03-23
+tags: [carte globale]
+image: /blog-assets/mcontours/cover.png
+thumbnail: 
+published: true
+---
+
+import notebook1 from '@linard-y/paramatric-function';
+import notebook2 from '@linard-y/planet3d';
+import ObservableNotebook from '@/components/ObservableNotebook';
+export const output_order1 = ['chart', 'viewof time'];
+export const output_order2 = ['viewof material', 'viewof details', 'viewof showClouds', 'viewof title', 'threeRenderer'];
+
+
+# Les contours de Mô'Omgaïa
+
+Le contour des continents et des îles de Mô'Omgaïa  sont conservés identiques à ceux de Mystara. Pour le reste, la topographie, les limites de territoire et les noms des villes, nations, etc., tout cela varie légèrement ou de façon plus importante.
+Pour les contours, nous reprenons ainsi une carte de Mystara pour échantillonner le tracé des contours et créer un fichier `geojson` qui permettra d'être la base de toutes les cartes globales de Mô'Omgaïa.
+Comme point de départ, nous avons choisi une carte de [Thorfinn Tait](https://www.pandius.com/thrs11iv.html). Thorfinn est un talenteux cartographe de Mystara qui a beaucoup oeuvrer pour rationaliser les cartes de Mystara publiés en réflichissant notamment aux systèmes de projection, aux échelles, aux origines des cartes de Mystara. Il a de nombreux sites à son actif consacrés à la cartographie de Mystara et à tout ce qui tourne autour ([www.thorfmaps.com](http://www.thorfmaps.com/) son blog, [AtlasOfMystara](https://mystara.thorfmaps.com/),un site l'exploration cartographique des territoires de Mystara, [Thorf’s Patreon](https://www.patreon.com/thorfinn) son patreon qui alimente ses autres sites, nombreuses de ses cartes sont aussi présentées sur le site [The Vaults of Pandius](http://pandius.com/ttait.html) et dans le forum consacré aux cartes de [The Piazza](http://www.thepiazza.org.uk/bb/viewforum.php?f=22)).
+La carte que nous avons choisi est présentée ci-dessous. Thorfin l'a présenté sur [un de ses posts](https://www.thorfmaps.com/mystara-climate-maps-ii/) sur le climat de Mystara en 2018. Comme nous cherchons à récupérer le tracé des continents, il était important d'éviter une carte trop chargée avec des indications textuelles par exemple et d'avoir une bonne résolution d'image.
+
+![Mystara](/blog-assets/contours/mystara-2018.png)
+
+Dans ce post, nous décrirons le process qui nous a conduit à la création du fichier `geojson` permettant de projeter les contours de Mô'Omagïa.
+
+## 1 - Retrait de l'arrière-plan étoilé
+Cette carte est une représentation de Mystara en projection [Mollweide](https://fr.wikipedia.org/wiki/Projection_de_Mollweide). Nous allons d'abord retirer l'arrière-plan étoilé en réduisant (crop) l'image à l'ellipse définissant la planisphère en projection Mollweide.
+
+```js
+croppedImageSVG = {
+  const svg = d3.select(DOM.svg(width, height));    
+  
+  // On créé un masque qui cachera l'arrière-plan en ne laissant visible que le planisphère
+  svg.append("mask")
+    .attr("id", "myMask")  
+    // Tout ce qui est sous un pixel noir sera invisbible
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", width)
+    .attr("height", height)
+    .attr("fill", "black");
+  
+  svg.select("#myMask")
+    // Tout ce qui est sous un pixel blanc sera visbible
+    .append("ellipse")
+    .attr("rx", (width)/2)
+    .attr("ry", (height)/2)
+    .attr("cx", (1+width)/2)
+    .attr("cy", (1+height)/2)
+    .attr("fill", "white");
+
+  // on affiche l'image sur laquelle on applique le masque
+  svg.append("image")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", width)
+    .attr("height", height)
+    .attr("xlink:href", URL.createObjectURL(imageSrc))
+    .attr("xmlns","http://www.w3.org/2000/svg")
+    .attr("mask", "url(#myMask)");  
+
+  return svg.node();
+}
+```

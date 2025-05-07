@@ -47,7 +47,7 @@ export const BlogCardList = ({ articles, className }: { articles: Meta[]; classN
             <div className='mt-auto text-xs'>
               <span className='dark:text-gray-500'>
                 <span className='select-none'> • </span>
-                {new Date(article.date).toLocaleDateString('en-US', {
+                {new Date(article.date).toLocaleDateString('fr-FR', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
