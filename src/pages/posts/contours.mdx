@@ -8,6 +8,7 @@ thumbnail: /blog-assets/contours/cover.png
 published: true
 ---
 
+import styles from '@/styles/contours.module.css'
 import Image from 'next/image'
 import notebook from "@linard-y/from-her-to-eternity"
 import ObservableNotebook from '@/components/ObservableNotebook';
@@ -180,7 +181,6 @@ imgTraceData = new Promise(async (resolve, reject) => {
   ImageTracer.loadImage(
           newImage1.src,
           function(canvas){
-            console.log("canvas");
             resolve(
               ImageTracer.imagedataToTracedata( ImageTracer.getImgdata(canvas), options )
             );
@@ -223,17 +223,38 @@ svgImg={
 
 ![svgForEnabledLayers](/blog-assets/contours/svgForEnabledLayers.png)
 
+Tout en bas de la carte, un ou deux pixels qui appartenaient à l'origine au périmètre du planisphère apparaissent maintenant dans un tout petit `path` autonome. Ca semble être le seul cas, et nous le supprimerons une fois que nous aurons créé les géoPolygones.
+
 ## 5 - Echantillonnage des `path`
 
-A l'issue l'étape précédente, nous aurons les contours que nous recherchons sous la forme d'une image vectorielle (svg). Nous allons échantillonner chaque chemin dans le svg à l'aide d'une méthode non linéaire faisant appel aux séries de Fourrier, décrite [ici](https://observablehq.com/@mbostock/fourier-series-path-sampling) par [Mike Bostock](https://observablehq.com/@mbostock). La méthode linéaire plus conventionnelle peut également convenir.
-
+Nous disposons à présent des contours recherchés sous la forme d'une image vectorielle (svg). Nous allons échantillonner chaque `path` dans le svg en utilisant une méthode linéaire basée sur les méthodes getTotalLength() et getPointAtLength(t) des `path` svg.
 Au lieu d'imposer un nombre constant de points à échantillonner, le nombre de points dépendra pour chaque `path` de sa longueur totale et d'une valeur de division de cette longueur. Plus la valeur de division est petite, plus le nombre de points échantillonnés est important.
 
-On obtient alors des ensembles de points définissant des polygones pour chaque continents et îles de l'image.
+```javascript copy
+polygonSampledFromPath = (path,samples) => {
+
+  path = svg`<path d="${path}">`
+  var poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+
+  var points = [];
+  var len  = path.getTotalLength();
+  var step = len/samples;
+  
+  for (var i=0;i<=len;i+=step){
+    var p = path.getPointAtLength(i);
+    points.push([p.x, p.y]);
+  }
+
+  return points
+}
+```
+On obtient alors des ensembles de points définissant des polygones pour chaque continents et îles de l'image. L'image ci-dessous est obtenu avec un facteur de division égal à 1. Cette image représent chaque point échantillonné. On constate que la valeur de division 1 fournit déjà un nombre d'échantillons trés important qui nous donne l'impression que le tracé des continents est continu mais zoomez sur l'image avec la molette de votre souris et vous pourrez constater qu'il s'agit bien d'ensembles de points. 
+
+<ObservableNotebook notebook={notebook} cells={["renderer"]} customClassName={styles.samplingRenderer} />
 
 ## 6 - Inversion de projection et création du fichier `geojson`
 
-Chaque point obtenu peut être retro-projeté afin d'obtenir ces coordonnées géospatials et ainsi nous obtenons les `geometry` non projetées de chaque `feature` associé à un continent ou à une île. L'ensemble de ces `features` constitue la `FeatureCollection` que l'on sauvegarde dans un fichier `geojson`.
+Chaque point obtenu peut être retro-projeté afin d'obtenir ces coordonnées géospatiales (longitude, latitude) et ainsi nous obtenons les `geometry` non projetées de chaque `Feature` associé à un continent ou à une île. L'ensemble de ces `features` constitue la `FeatureCollection` que l'on sauvegarde dans un fichier `geojson`.
 
 ```javascript copy
 geopolygons = {
@@ -244,20 +265,16 @@ geopolygons = {
     var path = svgImg.children[l];
     var len = path.getTotalLength();
     var NUM_POINTS = Math.max(8,len/step);
-    var points = [];
-    const pathSampler = new PathSampler(path.getAttribute("d").split(" M")[0]);
-    var parametricSamples = Array.from({length: NUM_POINTS}, (_, i) => pathSampler.pointAt(i / NUM_POINTS));
-
-    parametricSamples.map(d => points.push(proj.invert(d)));
-    data.push(points);
+    data.push(polygonSampledFromPath(path.getAttribute("d").split(" M")[0],NUM_POINTS).map(d=>proj.invert(d)));
   }
-  return data
+  return data.slice(0,-1) // on supprime ici le dernier polygone qui correspond au path créé par les pixels résiduels du bord du planisphère de l'image d'origine.
 }
 
 sampledPoints = geopolygons.flat()
 
 geojson = {
-  let features = geopolygons.map((p,i) => Object({geometry:({type: "Polygon", coordinates: [p]}), properties:{id:i}}))
+  const getProperties = (i) => names.filter(d => d.ID ==i)[0];
+  let features = geopolygons.map((p,i) => Object({type:'Feature', id:i, geometry:({type: "Polygon", coordinates: [p]}), properties:getProperties(i)}))
   return ({type:'FeatureCollection', features:features})
 }
 ```
@@ -267,4 +284,4 @@ geojson = {
 Le fichier `geojson` obtenu les contours des contients et des iles peuvent être reprojetés en projection Mollweide ou tout autre projection disponible.
 
 
-<ObservableNotebook notebook={notebook} cells={output_order} />
+<ObservableNotebook notebook={notebook} cells={["viewof targetProjection","Render_Proj"]} customClassName={styles.reprojection} />
