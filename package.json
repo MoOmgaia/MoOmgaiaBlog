@@ -24,7 +24,8 @@
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "wasm-imagemagick": "^1.2.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.6",
